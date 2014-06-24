@@ -59,15 +59,3 @@ cmd_fix_laggy_sound() {
 	}
 }
 
-cmd_autorestart() {
-	description="Włącza/wyłącza autouruchamianie pulseaudio w razie crasha."
-	usage="Użycie: autorestart <yes/no>"
-	run_autorestart() {
-		case "$1" in
-			yes) (echo Okay.; echo 'autospawn = yes' > ~/.config/pulse/client.conf) ;;
-			no) (echo Okay.; echo 'autospawn = no' > ~/.config/pulse/client.conf) ;;
-			*) echo $usage;
-		esac
-	}
-}
-
