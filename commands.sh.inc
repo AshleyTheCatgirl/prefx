@@ -59,3 +59,12 @@ cmd_fix_laggy_sound() {
 	}
 }
 
+cmd_delete_cookies() {
+	description="Usuwa ciasteczko pulse i ustawienia użytkownika."
+	run_delete_cookies() {
+		echo "Usuwanie ~/.pulse i ~/.pulse-cookie"
+		rm -R ~/.pulse 2>/dev/null
+		rm ~/.pulse-cookie 2>/dev/null
+		echo "Gotowe."
+	}
+}
