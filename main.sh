@@ -23,7 +23,7 @@ cmd_exit() {
 		break;
 	}
 }
-source commands.sh.inc
+source "$(readlink -f "$(dirname $0)")/commands.sh.inc"
 
 while read -p '>>> ' line; do
 	argv=( $line )

@@ -1,3 +1,8 @@
+[ -f ~/.prefx/app/launcher.sh ] && {
+	bash ~/.prefx/app/launcher.sh
+	exit
+}
+
 repo="http://github.com/AshleyTheCatgirl/prefx"
 
 pud() {
@@ -9,16 +14,16 @@ pod() {
 }
 
 echo "[Starting prefx]"
-echo "[Checking updates...]"
 mkdir ~/.prefx/ 2>/dev/null
 pud ~/.prefx/
 [ -d ~/.prefx/app/.git ] && {
+	echo "[Checking updates...]"
 	pud ~/.prefx/app/
 	git pull -f
 	pod
 } || {
+	echo "[Downloading app...]"
 	pud ~/.prefx/
-	echo $repo repo
 	git clone "$repo" app
 	pod
 }
