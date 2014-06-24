@@ -68,3 +68,11 @@ cmd_delete_cookies() {
 		echo "Gotowe."
 	}
 }
+
+cmd_auto_bluetooth_usb() {
+	description="Automatyczne przełączanie na zestaw bluetooth lub USB."
+	run_auto_bluetooth_usb() {
+		sudo sh -c "echo 'load-module module-switch-on-connect' >> /etc/pulse/default.pa"
+		echo "Gotowe."
+	}
+}
