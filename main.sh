@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "[prefx pre 0.1 by 0x017]"
+echo "[prefx pre 0.1.1 by 0x017]"
 echo "Przepisane na basha przez Ashley"
 
 cmd_help() {
