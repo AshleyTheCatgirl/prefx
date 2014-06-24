@@ -1,13 +1,21 @@
 cmd_backup() {
 	description="Wykonuje kopie zapasową ustawień, w razie gdyby coś poszło nie tak."
 	run_backup() {
-		echo "Tworzę katalog ~/.backup_PFIX"
-		mkdir ~/.prefx/backup -p 2>/dev/null
-		echo "Wykonuję kopię /etc/pulse"
-		cp -R /etc/pulse ~/.prefx/backup/etc_pulse
-		echo "Wykonuję kopię ~/.pulse"
-		cp -R ~/.pulse ~/.prefx/backup/dot_pulse
-		echo "Gotowe."
+		restored=0
+		mkdir -p ~/.prefx/backup 2>/dev/null
+		[ -d /etc/pulse ] && {
+			echo "Wykonywanie kopii /etc/pulse"
+			rm -rf ~/.prefx/backup/etc_pulse 2>/dev/null
+			cp -R /etc/pulse ~/.prefx/backup/etc_pulse
+			restored=1
+		}
+		[ -d ~/.prefx/backup/dot_pulse ] && {
+			echo "Wykonywanie kopii ~/.pulse"
+			rm -rf ~/.prefx/backup/dot_pulse 2>/dev/null
+			cp -R ~/.pulse ~/.prefx/backup/dot_pulse
+			restored=1
+		}
+		[ $restored = 1 ] && echo "Gotowe." || echo "Nie znaleziono plików konfiguracyjnych."
 	}
 }
 
