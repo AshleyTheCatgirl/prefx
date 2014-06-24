@@ -2,12 +2,32 @@ cmd_backup() {
 	description="Wykonuje kopie zapasową ustawień, w razie gdyby coś poszło nie tak."
 	run_backup() {
 		echo "Tworzę katalog ~/.backup_PFIX"
-		mkdir ~/.backup_PFIX
+		mkdir ~/.prefx/backup -p 2>/dev/null
 		echo "Wykonuję kopię /etc/pulse"
-		cp -R /etc/pulse ~/.backup_PFIX/etc_pulse
+		cp -R /etc/pulse ~/.prefx/backup/etc_pulse
 		echo "Wykonuję kopię ~/.pulse"
-		cp -R ~/.pulse ~/.backup_PFIX/dot_pulse
+		cp -R ~/.pulse ~/.prefx/backup/dot_pulse
 		echo "Gotowe."
+	}
+}
+
+cmd_restore() {
+	description="Przywraca z ustawienia z uprzednio wykonanej kopii zapasowej."
+	run_restore() {
+		restored=0
+		[ -d ~/.prefx/backup/etc_pulse ] && {
+			echo "Przywracanie /etc/pulse"
+			sudo rm -rf /etc/pulse 2>/dev/null
+			sudo cp -R ~/.prefx/backup/etc_pulse /etc/pulse
+			restored=1
+		}
+		[ -d ~/.prefx/backup/dot_pulse ] && {
+			echo "Przywracanie ~/.pulse"
+			rm -rf ~/.pulse 2>/dev/null
+			cp -R ~/.prefx/backup/dot_pulse ~/.pulse
+			restored=1
+		}
+		[ $restored = 1 ] && echo "Gotowe." || echo "Nie znaleziono kopii zapasowej."
 	}
 }
 
@@ -42,3 +62,4 @@ cmd_autorestart() {
 		esac
 	}
 }
+
